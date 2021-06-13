@@ -47,7 +47,7 @@ for n = 1:(2*N+1)
         end
 
 %        S(n,m) =  F(n,m)*exp(1i*kz*z);
-        prom = 1i*z*(kz);
+        prom = 1i*z*(kz)*0,1;
        S(n,m) = F(n,m)*exp(prom);
 
     end
@@ -56,37 +56,38 @@ end
 
 % Обратное БПФ:     
  Res =ifft2(S);
-  pcolor(abs(Res));
+%  pcolor(abs(Res));
 
 
-% %% ОБРАТНАЯ ЗАДАЧА
-% % Res_0 = conj(Res);
-% Res_0 = Res;
-% Fobr = fftshift(fft2(Res_0));
-% % pcolor (abs(Fobr));
-% 
-% %Домножение на член распространения:
-% for n = 1:2*N+1
-%     for m = 1:2*M+1
-%         kx = (n-N-1)*pi/Lx;
-%         ky = (m-M-1)*pi/Ly;
-%         if ((kx^2+ky^2) > k^2 ) 
-%             kz = k;
-% %             Fobr(n,m) = 0;
-%         else
-%             kz = sqrt(k^2-kx^2-ky^2);
-%         end
-% %         Sobr(n,m) = Fobr(n,m) - S(n,m);
-% %         Sobr(n,m) = Fobr(n,m)*exp(1i*(kz)*z);  
-% %         Sobr(n,m) = exp(1i*(kz)*z);
-%         prom2 = -1i*(kz)*z*0,1;
-%         Sobr(n,m) = Fobr(n,m)*exp(prom2);
-%     end
-% end
-% %   pcolor(abs(Sobr));
-% %Обратное БПФ:     
-% Res_obr =(ifft2(Sobr));
-% pcolor(abs(Res_obr));
+%% ОБРАТНАЯ ЗАДАЧА
+% Res_0 = conj(Res);
+Res_0 = Res;
+Fobr = fftshift(fft2(Res_0));
+% pcolor (abs(Fobr));
+
+%Домножение на член распространения:
+for n = 1:2*N+1
+    for m = 1:2*M+1
+        kx = (n-N-1)*pi/Lx;
+        ky = (m-M-1)*pi/Ly;
+        if ((kx^2+ky^2) > k^2 ) 
+            kz = k;
+%             Fobr(n,m) = 0;
+        else
+            kz = sqrt(k^2-kx^2-ky^2);
+        end
+%         Sobr(n,m) = Fobr(n,m) - S(n,m);
+%         Sobr(n,m) = Fobr(n,m)*exp(1i*(kz)*z);  
+%         Sobr(n,m) = exp(1i*(kz)*z);
+        prom2 = -1i*(kz)*z*0,1;
+        Sobr(n,m) = Fobr(n,m)*exp(prom2);
+    end
+end
+%   pcolor(abs(Sobr));
+
+%Обратное БПФ:     
+Res_obr =(ifft2(Sobr));
+pcolor(abs(Res_obr));
 
 
 % 
