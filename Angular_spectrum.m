@@ -81,14 +81,11 @@ for n = 1:2*N+1
         else
             kz = sqrt(k^2-kx^2-ky^2);
         end
-%         Sobr(n,m) = Fobr(n,m) - S(n,m);
-%         Sobr(n,m) = Fobr(n,m)*exp(1i*(kz)*z);  
-%         Sobr(n,m) = exp(1i*(kz)*z);
         prom2 = -1i*(kz)*z*0,1;
         Sobr(n,m) = Fobr(n,m)*exp(prom2);
     end
 end
-%   pcolor(abs(Sobr));
+
 
 %Обратное БПФ:     
 Res_obr =(ifft2(Sobr));
